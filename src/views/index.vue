@@ -3,17 +3,21 @@
     <div class="left">
       <Playing />
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <RightPart />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Playing from '../components/Playing.vue';
+import RightPart from '../components/rightPart/index.vue';
 
 @Component({
   components: {
     Playing,
+    RightPart,
   },
 })
 export default class Index extends Vue {}
@@ -23,6 +27,15 @@ export default class Index extends Vue {}
   width: 1040px;
   margin: 0 auto;
   margin-top: 40px;
+  display: flex;
+  .left {
+    width: 715px;
+    margin-right: 60px;
+  }
+  .right {
+    @diff : 60px;
+    width: calc(~'325px - @{diff}');
+  }
 }
 </style>
 

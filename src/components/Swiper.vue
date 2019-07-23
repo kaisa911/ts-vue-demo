@@ -4,8 +4,8 @@
     id="carousel"
   >
     <transition-group
+      :name="left?'list':'list1'"
       class="slide-ul"
-      name="list"
       tag="ul"
     >
       <li
@@ -23,6 +23,7 @@ import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
 export default class Playing extends Vue {
   @Prop({ default: 0 }) private currentIndex!: number;
   @Prop({ default: [''] }) private slideList!: string[];
+  @Prop() private left!: boolean;
 }
 </script>
 <style lang="less" scoped>
@@ -30,7 +31,7 @@ export default class Playing extends Vue {
   height: 200px;
   width: 100%;
   overflow: hidden;
-  background-color: #f2ff;
+  background-color: #fff;
 }
 
 .slide-ul {
@@ -90,6 +91,23 @@ img {
 }
 
 .list-leave {
+  transform: translateX(0);
+}
+.list1-enter-to {
+  transition: all 1s ease;
+  transform: translateX(0);
+}
+
+.list1-leave-active {
+  transition: all 1s ease;
+  transform: translateX(100%);
+}
+
+.list1-enter {
+  transform: translateX(-100%);
+}
+
+.list1-leave {
   transform: translateX(0);
 }
 </style>

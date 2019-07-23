@@ -28,6 +28,7 @@
     </div>
     <Swiper
       :currentIndex="currentIndex"
+      :left="left"
       :slideList="slideList"
     ></Swiper>
   </div>
@@ -39,66 +40,109 @@ import Swiper from './Swiper.vue';
 import request from '../../utils/request';
 import api from '../../utils/api';
 
+interface Iresult {
+  lastModifiedTime: string;
+  projectCode: string;
+  projectId: string;
+  projectName: string;
+}
+
 @Component({
   components: {
     Swiper,
   },
 })
 export default class Playing extends Vue {
-  private totalPage: number = 12;
-  private currentIndex: number = 1;
-  private timer: any = null;
-  private slideList!: string[];
+  private totalPage: number = 0; // 总页数
+  private currentIndex: number = 1; // 当前页数
+  private timer: any = null; // 计数器
+  private slideList: string[] = []; // 内容列表
+  private left: boolean = true; // 左滑标识
 
+  // 获取数据
   private async getMovieDate() {
-    const res = await request.get(api.inTheaters);
+    const res = await request.post(api.queryProjects, {
+      pageNum: 1,
+      pageSize: 10,
+      keywords: '',
+      flag: 'me',
+    });
+    res.data.list.map((item: Iresult) => {
+      this.slideList.push(item.projectName);
+    });
+    this.totalPage = this.slideList.length;
   }
 
   // 跳转到全部正在热映
   private toAllHotPlaying(): void {
-    window.open('https://movie.douban.com/cinema/nowplaying/', '_self');
+    window.open('https://movie.douban.com/cinema/nowplaying/', '_blank');
   }
   // 跳转到即将上映
   private toWillPlaying(): void {
-    window.open('https://movie.douban.com/later/', '_self');
+    window.open('https://movie.douban.com/later/', '_blank');
   }
   // 页数+1
   private handleAddPages(): void {
-    if (this.currentIndex < 12) {
+    this.stop();
+    this.left = true;
+
+    if (this.currentIndex < this.totalPage) {
       this.currentIndex += 1;
+      this.go();
       return;
     }
-    if (this.currentIndex === 12) {
+    if (this.currentIndex === this.totalPage) {
       this.currentIndex = 1;
+      this.go();
       return;
     }
   }
 
   // 页数-1
   private handleSubstractPages(): void {
+    this.stop();
+    this.left = false;
+
     if (this.currentIndex > 1) {
       this.currentIndex -= 1;
+      this.go();
       return;
     }
     if (this.currentIndex === 1) {
-      this.currentIndex = 12;
+      this.currentIndex = this.totalPage;
+      this.go();
       return;
     }
   }
 
+  // 重新开始循环
+  private go() {
+    this.timer = setInterval(() => {
+      this.autoPlay();
+    }, 15000);
+  }
+
+  // 停止
+  private stop() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+
   // 自动播放
   private autoPlay(): void {
+    this.left = true;
     this.currentIndex++;
 
     if (this.currentIndex > this.slideList.length - 1) {
       this.currentIndex = 1;
     }
   }
+  // 挂载
   private mounted() {
     this.getMovieDate();
     this.timer = setInterval(() => {
       this.autoPlay();
-    }, 10000);
+    }, 15000);
   }
 }
 </script>
