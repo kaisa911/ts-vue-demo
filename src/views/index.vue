@@ -2,6 +2,7 @@
   <div class="index-wrap">
     <div class="left">
       <Playing />
+      <Button />
     </div>
     <div class="right">
       <RightPart />

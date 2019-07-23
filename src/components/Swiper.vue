@@ -77,12 +77,12 @@ img {
 }
 
 .list-enter-to {
-  transition: all 1s ease;
+  transition: all 3s ease;
   transform: translateX(0);
 }
 
 .list-leave-active {
-  transition: all 1s ease;
+  transition: all 3s ease;
   transform: translateX(-100%);
 }
 
@@ -94,12 +94,12 @@ img {
   transform: translateX(0);
 }
 .list1-enter-to {
-  transition: all 1s ease;
+  transition: all 3s ease;
   transform: translateX(0);
 }
 
 .list1-leave-active {
-  transition: all 1s ease;
+  transition: all 3s ease;
   transform: translateX(100%);
 }
 

@@ -3,7 +3,11 @@
     <div class="wrap">
       <div class="auth">© 2005－2019 douban.com, all rights reserved 北京豆网科技有限公司</div>
       <div class="nav">
-        <div :key="`${item}`+index" class="nav-item" v-for="(item,index) in navList">
+        <div
+          :key="`${item}`+index"
+          class="nav-item"
+          v-for="(item,index) in navList"
+        >
           <a :href="item.linkUrl">{{item.navName}}</a>
         </div>
       </div>
