@@ -3,26 +3,56 @@
     <div class="title">
       <h3>正在热映</h3>
       <div class="vice-title">
-        <span @click="toAllHotPlaying" class="anchor all-playing">全部正在热映»</span>
-        <span @click="toWillPlaying" class="anchor will-playing">即将上映»</span>
+        <span
+          @click="toAllHotPlaying"
+          class="anchor all-playing"
+        >全部正在热映»</span>
+        <span
+          @click="toWillPlaying"
+          class="anchor will-playing"
+        >即将上映»</span>
       </div>
       <div class="slide-control">
-        <span class="num">{{currentPage}}/{{totalPage}}</span>
-        <a @click="handleSubstractPages" class="btn last-btn" href="javascript:void(0)"></a>
-        <a @click="handleAddPages" class="btn next-btn" href="javascript:void(0)"></a>
+        <span class="num">{{currentIndex}}/{{totalPage}}</span>
+        <a
+          @click="handleSubstractPages"
+          class="btn last-btn"
+          href="javascript:void(0)"
+        ></a>
+        <a
+          @click="handleAddPages"
+          class="btn next-btn"
+          href="javascript:void(0)"
+        ></a>
       </div>
     </div>
-    <div class="swiper"></div>
+    <Swiper
+      :currentIndex="currentIndex"
+      :slideList="slideList"
+    ></Swiper>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import Swiper from './Swiper.vue';
+import request from '../../utils/request';
+import api from '../../utils/api';
 
-@Component
+@Component({
+  components: {
+    Swiper,
+  },
+})
 export default class Playing extends Vue {
-  private currentPage: number = 1;
   private totalPage: number = 12;
+  private currentIndex: number = 1;
+  private timer: any = null;
+  private slideList!: string[];
+
+  private async getMovieDate() {
+    const res = await request.get(api.inTheaters);
+  }
 
   // 跳转到全部正在热映
   private toAllHotPlaying(): void {
@@ -34,25 +64,41 @@ export default class Playing extends Vue {
   }
   // 页数+1
   private handleAddPages(): void {
-    if (this.currentPage < 12) {
-      this.currentPage += 1;
+    if (this.currentIndex < 12) {
+      this.currentIndex += 1;
       return;
     }
-    if (this.currentPage === 12) {
-      this.currentPage = 1;
+    if (this.currentIndex === 12) {
+      this.currentIndex = 1;
       return;
     }
   }
+
   // 页数-1
   private handleSubstractPages(): void {
-    if (this.currentPage > 1) {
-      this.currentPage -= 1;
+    if (this.currentIndex > 1) {
+      this.currentIndex -= 1;
       return;
     }
-    if (this.currentPage === 1) {
-      this.currentPage = 12;
+    if (this.currentIndex === 1) {
+      this.currentIndex = 12;
       return;
     }
+  }
+
+  // 自动播放
+  private autoPlay(): void {
+    this.currentIndex++;
+
+    if (this.currentIndex > this.slideList.length - 1) {
+      this.currentIndex = 1;
+    }
+  }
+  private mounted() {
+    this.getMovieDate();
+    this.timer = setInterval(() => {
+      this.autoPlay();
+    }, 10000);
   }
 }
 </script>
