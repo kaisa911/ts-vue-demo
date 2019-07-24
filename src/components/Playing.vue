@@ -37,15 +37,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import Swiper from './Swiper.vue';
-import request from '../../utils/request';
-import api from '../../utils/api';
 
-interface Iresult {
-  lastModifiedTime: string;
-  projectCode: string;
-  projectId: string;
-  projectName: string;
-}
+import { Action, Mutation, State } from 'vuex-class';
 
 @Component({
   components: {
@@ -59,19 +52,8 @@ export default class Playing extends Vue {
   private slideList: string[] = []; // 内容列表
   private left: boolean = true; // 左滑标识
 
-  // 获取数据
-  private async getMovieDate() {
-    const res = await request.post(api.queryProjects, {
-      pageNum: 1,
-      pageSize: 10,
-      keywords: '',
-      flag: 'me',
-    });
-    res.data.list.map((item: Iresult) => {
-      this.slideList.push(item.projectName);
-    });
-    this.totalPage = this.slideList.length;
-  }
+  @Action private getMovieDate!: () => any;
+  @State private inTheater!: string[];
 
   // 跳转到全部正在热映
   private toAllHotPlaying(): void {
@@ -139,7 +121,11 @@ export default class Playing extends Vue {
   }
   // 挂载
   private mounted() {
-    this.getMovieDate();
+    // 获取数据
+    this.getMovieDate().then(() => {
+      this.slideList = this.inTheater;
+    });
+
     this.timer = setInterval(() => {
       this.autoPlay();
     }, 15000);
