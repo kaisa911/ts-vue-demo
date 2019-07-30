@@ -7,6 +7,7 @@
     <div class="right">
       <RightPart />
     </div>
+    <div @click="goToMineSweeper">扫雷</div>
   </div>
 </template>
 
@@ -21,7 +22,13 @@ import RightPart from '../components/rightPart/index.vue';
     RightPart,
   },
 })
-export default class Index extends Vue {}
+export default class Index extends Vue {
+  private goToMineSweeper() {
+    this.$router.push({
+      path: '/saolei',
+    });
+  }
+}
 </script>
 <style lang="less" scoped>
 .index-wrap {
