@@ -7,7 +7,6 @@
     <div class="right">
       <RightPart />
     </div>
-    <div @click="goToMineSweeper">扫雷</div>
   </div>
 </template>
 
