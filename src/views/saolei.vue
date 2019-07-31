@@ -53,9 +53,9 @@ export default class SaoLei extends Vue {
     ['', '', '', '', ''],
   ];
   // 埋雷
-  private handleSetMine() {
+  private handleSetMine(): void {
     // 随机生成雷点
-    for (let i = 0; i < 5; i++) {
+    for (let i: number = 0; i < 5; i++) {
       const row: number = Math.floor(Math.random() * 5);
       const col: number = Math.floor(Math.random() * 5);
       // 如果当前不是雷，就当前值设为雷
@@ -67,8 +67,8 @@ export default class SaoLei extends Vue {
       }
     }
     // 生成雷点周围的雷数
-    for (let index = 0; index < 5; index++) {
-      for (let index2 = 0; index2 < 5; index2++) {
+    for (let index: number = 0; index < 5; index++) {
+      for (let index2: number = 0; index2 < 5; index2++) {
         // 周围雷的数量
         let mineNum: number = 0;
         for (let i: number = index - 1; i <= index + 1; i++) {
@@ -100,7 +100,7 @@ export default class SaoLei extends Vue {
     }
   }
   // 左键点击事件
-  private handleClick(index: number, index2: number) {
+  private handleClick(index: number, index2: number): void {
     // 点到雷，就爆炸
     if (this.data[index][index2] === '*') {
       this.mask = this.data;
@@ -130,7 +130,7 @@ export default class SaoLei extends Vue {
     }
   }
   // 点击位置为0的时候的处理
-  private handleZero(arr: any[], index: number, index2: number) {
+  private handleZero(arr: any[], index: number, index2: number): any[] {
     let res: any[] = [...arr];
     // 对当前位置周围8个值进行判断
     for (let i: number = index - 1; i <= index + 1; i++) {
@@ -167,7 +167,7 @@ export default class SaoLei extends Vue {
     return res;
   }
   // 右键点击事件处理
-  private handleRightClick(index: number, index2: number) {
+  private handleRightClick(index: number, index2: number): void {
     const maskTemp: any[] = [...this.mask];
     // 如果是小红旗，再次右键点击显示问号
     if (maskTemp[index][index2] === '🚩') {
@@ -181,9 +181,8 @@ export default class SaoLei extends Vue {
     }
     this.mask = maskTemp;
   }
-
   // 判断成功的辅助函数
-  private handleSuccess(arr: any[]) {
+  private handleSuccess(arr: any[]): boolean {
     const temp = JSON.parse(JSON.stringify(arr));
     // 把数组里的小红旗和问号都变成空字符串‘’
     for (let i = 0; i < arr.length; i++) {
@@ -200,7 +199,7 @@ export default class SaoLei extends Vue {
     return false;
   }
   // 再来一局
-  private handleRestart() {
+  private handleRestart(): void {
     this.mask = [
       ['', '', '', '', ''],
       ['', '', '', '', ''],
@@ -224,7 +223,7 @@ export default class SaoLei extends Vue {
     ];
     this.handleSetMine();
   }
-  private created() {
+  private created(): void {
     this.handleSetMine();
   }
 }
