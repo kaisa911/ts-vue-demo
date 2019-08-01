@@ -18,11 +18,14 @@
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
+    "@types/node": "^12.6.8",
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-plugin-typescript": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
+    "fs": "0.0.1-security",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "path": "^0.12.7",
     "prettier": "^1.18.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",

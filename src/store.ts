@@ -12,7 +12,7 @@ export default new Vuex.Store({
   },
   mutations: {
     changeInTheater(state: IState, data) {
-      const arr = data.list;
+      const arr: any[] = [];
       const arrTemp: string[] = [];
       arr.map((item: Iintheater) => {
         arrTemp.push(item.projectName);
