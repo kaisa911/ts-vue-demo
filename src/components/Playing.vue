@@ -30,19 +30,23 @@
       :currentIndex="currentIndex"
       :left="left"
       :slideList="slideList"
+      @addToCount="handleAdd"
     ></Swiper>
+    <hhh />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import Swiper from './Swiper.vue';
+import hhh from './hhh.vue';
 
 import { Action, Mutation, State } from 'vuex-class';
 
 @Component({
   components: {
     Swiper,
+    hhh,
   },
 })
 export default class Playing extends Vue {
@@ -54,6 +58,10 @@ export default class Playing extends Vue {
 
   @Action private getMovieDate!: () => any;
   @State private inTheater!: string[];
+
+  private handleAdd(n: number) {
+    this.totalPage += n;
+  }
 
   // 跳转到全部正在热映
   private toAllHotPlaying(): void {

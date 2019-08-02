@@ -17,13 +17,19 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
+import { Component, Vue, Watch, Prop, Emit } from 'vue-property-decorator';
 
 @Component
 export default class Playing extends Vue {
   @Prop({ default: 0 }) private currentIndex!: number;
   @Prop({ default: [''] }) private slideList!: string[];
   @Prop() private left!: boolean;
+  private count: number = 0;
+
+  @Emit()
+  private addToCount(n: number) {
+    this.count += n;
+  }
 }
 </script>
 <style lang="less" scoped>

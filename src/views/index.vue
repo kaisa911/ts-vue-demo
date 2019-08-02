@@ -7,7 +7,6 @@
     <div class="right">
       <RightPart />
     </div>
-    {{directory}}
   </div>
 </template>
 
