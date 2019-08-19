@@ -1,8 +1,8 @@
-import { IState, Iintheater } from './index.d';
+import { IState, Iintheater } from './index';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import request from '../utils/request';
-import api from '../utils/api';
+import request from '../../../utils/request';
+import api from '../../../utils/api';
 
 Vue.use(Vuex);
 

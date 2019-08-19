@@ -3,7 +3,7 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class Title extends Vue {
   private render() {
-    return <div class="title2">我是一个title</div>;
+    return <div class='title2'>我是一个title</div>;
   }
 }
 </script>
