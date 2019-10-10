@@ -7,6 +7,7 @@
     <div class="right">
       <RightPart />
     </div>
+    {{name}}
   </div>
 </template>
 
@@ -26,6 +27,11 @@ export default class Index extends Vue {
     this.$router.push({
       path: '/saolei',
     });
+  }
+  private name: string = '';
+
+  private mounted() {
+    this.name = 'lalal';
   }
 }
 </script>

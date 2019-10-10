@@ -1,35 +1,7 @@
-# ts-demo
+# ts-Vue-demo
 
-## Project setup
+一个 TypeScript+Vue 的多页小框架
 
-```
-npm install
-```
+使用了 node 来处理多页。
 
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Run your tests
-
-```
-npm run test
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+页面有两个，一个是仿豆瓣电影首页，一个是 5\*5 的扫雷游戏。
