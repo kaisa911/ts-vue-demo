@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "@types/node": "^12.6.8",
-    "@vue/cli-plugin-babel": "^3.9.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-typescript": "^3.9.0",
-    "@vue/cli-service": "^3.9.0",
+    "@vue/cli-service": "^5.0.8",
     "fs": "0.0.1-security",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
